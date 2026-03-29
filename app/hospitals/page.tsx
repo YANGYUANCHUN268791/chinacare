@@ -3,37 +3,48 @@ import { useState } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
+import { useLanguage } from '@/components/LanguageProvider'
 
 const ALL_HOSPITALS = [
-  { id: 1, name: 'Peking Union Medical College Hospital', nameZh: '北京协和医院', city: 'Beijing', region: 'north', specialties: ['Oncology', 'Cardiology', 'Neurology', 'Rare Diseases'], rating: 4.9, patients: '2,000+', beds: '2,000+', founded: '1921', accreditation: 'JCI', intlDept: true, desc: 'China\'s #1 ranked hospital for 13 consecutive years. World-renowned for complex and rare disease treatment.', phone: '+86-10-69156114', flag: '🏛️' },
-  { id: 2, name: 'Zhongshan Hospital (Fudan University)', nameZh: '复旦大学附属中山医院', city: 'Shanghai', region: 'east', specialties: ['Liver Surgery', 'Cardiology', 'Gastroenterology'], rating: 4.8, patients: '1,500+', beds: '2,500+', founded: '1937', accreditation: 'JCI', intlDept: true, desc: 'World leader in liver transplantation. Performs 400+ liver transplants annually.', phone: '+86-21-64041990', flag: '🏥' },
-  { id: 3, name: 'West China Hospital (Sichuan University)', nameZh: '四川大学华西医院', city: 'Chengdu', region: 'west', specialties: ['Orthopedics', 'Neurosurgery', 'Stomatology'], rating: 4.8, patients: '1,200+', beds: '4,300+', founded: '1892', accreditation: 'ISO', intlDept: true, desc: 'One of the world\'s largest hospitals. #1 in western China for orthopedics and neurosurgery.', phone: '+86-28-85422114', flag: '🏨' },
-  { id: 4, name: 'Sun Yat-sen University First Affiliated', nameZh: '中山大学附属第一医院', city: 'Guangzhou', region: 'south', specialties: ['Organ Transplant', 'Oncology', 'Nephrology'], rating: 4.7, patients: '900+', beds: '3,300+', founded: '1910', accreditation: 'ISO', intlDept: true, desc: 'Top-ranked in southern China. Over 10,000 kidney transplants performed.', phone: '+86-20-87755766', flag: '🏩' },
-  { id: 5, name: 'Ruijin Hospital (Shanghai Jiao Tong)', nameZh: '上海交通大学医学院附属瑞金医院', city: 'Shanghai', region: 'east', specialties: ['Hematology', 'Endocrinology', 'General Surgery'], rating: 4.8, patients: '1,100+', beds: '1,700+', founded: '1907', accreditation: 'JCI', intlDept: true, desc: 'Pioneered the "Shanghai Protocol" for leukemia with 95%+ cure rate.', phone: '+86-21-64370045', flag: '🏦' },
-  { id: 6, name: 'Huashan Hospital International', nameZh: '复旦大学附属华山医院', city: 'Shanghai', region: 'east', specialties: ['Neurology', 'Infectious Disease', 'Dermatology'], rating: 4.7, patients: '800+', beds: '1,700+', founded: '1907', accreditation: 'ISO', intlDept: true, desc: 'Premier neurology center. International Medical Center serving 80+ nationalities.', phone: '+86-21-52889999', flag: '🌟' },
-  { id: 7, name: 'Beijing Tiantan Hospital', nameZh: '首都医科大学附属北京天坛医院', city: 'Beijing', region: 'north', specialties: ['Neurosurgery', 'Neurology', 'Stroke'], rating: 4.8, patients: '700+', beds: '1,650+', founded: '1956', accreditation: 'JCI', intlDept: true, desc: 'Ranked among world\'s top 10 for neurological care. Asia\'s largest neuroscience center.', phone: '+86-10-59976699', flag: '🧠' },
-  { id: 8, name: 'Beijing Anzhen Hospital', nameZh: '首都医科大学附属北京安贞医院', city: 'Beijing', region: 'north', specialties: ['Cardiac Surgery', 'Cardiology', 'Vascular Surgery'], rating: 4.8, patients: '1,000+', beds: '1,500+', founded: '1984', accreditation: 'ISO', intlDept: true, desc: 'China\'s largest cardiac surgery center. Performs 10,000+ cardiac surgeries annually.', phone: '+86-10-64456114', flag: '❤️' },
-  { id: 9, name: 'Sun Yat-sen University Cancer Center', nameZh: '中山大学肿瘤防治中心', city: 'Guangzhou', region: 'south', specialties: ['Oncology', 'Radiation Therapy', 'Cancer Surgery'], rating: 4.9, patients: '1,300+', beds: '1,800+', founded: '1964', accreditation: 'ISO', intlDept: true, desc: 'China\'s top cancer center. Ranked #1 for nasopharyngeal carcinoma treatment globally.', phone: '+86-20-87343088', flag: '🎗️' },
-  { id: 10, name: 'Zhejiang University First Affiliated', nameZh: '浙江大学医学院附属第一医院', city: 'Hangzhou', region: 'east', specialties: ['Liver Transplant', 'Infectious Disease', 'Organ Transplant'], rating: 4.7, patients: '600+', beds: '3,600+', founded: '1947', accreditation: 'ISO', intlDept: true, desc: 'National leader in liver transplantation and infectious disease. Pioneered COVID-19 treatment protocols.', phone: '+86-571-87236666', flag: '🏯' },
-  { id: 11, name: 'Tongji Hospital (Huazhong University)', nameZh: '华中科技大学同济医学院附属同济医院', city: 'Wuhan', region: 'central', specialties: ['Cardiology', 'Oncology', 'Organ Transplant'], rating: 4.7, patients: '500+', beds: '4,000+', founded: '1900', accreditation: 'ISO', intlDept: true, desc: 'Central China\'s premier medical center. Renowned for cardiac and organ transplant programs.', phone: '+86-27-83663300', flag: '🏫' },
-  { id: 12, name: 'Peking University People\'s Hospital', nameZh: '北京大学人民医院', city: 'Beijing', region: 'north', specialties: ['Hematology', 'Orthopedics', 'Trauma Surgery'], rating: 4.7, patients: '800+', beds: '2,000+', founded: '1918', accreditation: 'ISO', intlDept: true, desc: 'World-leading bone marrow transplant center. Pioneered haploidentical transplantation.', phone: '+86-10-88324422', flag: '🏤' },
+  { id: 1, name: 'Peking Union Medical College Hospital', nameZh: '北京协和医院', city: 'Beijing', cityZh: '北京', region: 'north', specialties: ['Oncology', 'Cardiology', 'Neurology', 'Rare Diseases'], specialtiesZh: ['肿瘤科', '心脏科', '神经科', '罕见病'], rating: 4.9, patients: '2,000+', beds: '2,000+', founded: '1921', accreditation: 'JCI', intlDept: true, desc: 'China\'s #1 ranked hospital for 13 consecutive years.', descZh: '连续13年全国排名第一的医院。', phone: '+86-10-69156114', flag: '🏛️' },
+  { id: 2, name: 'Zhongshan Hospital (Fudan University)', nameZh: '复旦大学附属中山医院', city: 'Shanghai', cityZh: '上海', region: 'east', specialties: ['Liver Surgery', 'Cardiology', 'Gastroenterology'], specialtiesZh: ['肝胆外科', '心脏科', '消化科'], rating: 4.8, patients: '1,500+', beds: '2,500+', founded: '1937', accreditation: 'JCI', intlDept: true, desc: 'World leader in liver transplantation.', descZh: '全球肝移植领域的领先者。', phone: '+86-21-64041990', flag: '🏥' },
+  { id: 3, name: 'West China Hospital (Sichuan University)', nameZh: '四川大学华西医院', city: 'Chengdu', cityZh: '成都', region: 'west', specialties: ['Orthopedics', 'Neurosurgery', 'Stomatology'], specialtiesZh: ['骨科', '神经外科', '口腔科'], rating: 4.8, patients: '1,200+', beds: '4,300+', founded: '1892', accreditation: 'ISO', intlDept: true, desc: 'One of the world\'s largest hospitals.', descZh: '全球最大的医院之一。', phone: '+86-28-85422114', flag: '🏨' },
+  { id: 4, name: 'Sun Yat-sen University First Affiliated', nameZh: '中山大学附属第一医院', city: 'Guangzhou', cityZh: '广州', region: 'south', specialties: ['Organ Transplant', 'Oncology', 'Nephrology'], specialtiesZh: ['器官移植', '肿瘤科', '肾内科'], rating: 4.7, patients: '900+', beds: '3,300+', founded: '1910', accreditation: 'ISO', intlDept: true, desc: 'Top-ranked in southern China.', descZh: '华南地区排名第一的医院。', phone: '+86-20-87755766', flag: '🏩' },
+  { id: 5, name: 'Ruijin Hospital (Shanghai Jiao Tong)', nameZh: '上海瑞金医院', city: 'Shanghai', cityZh: '上海', region: 'east', specialties: ['Hematology', 'Endocrinology', 'General Surgery'], specialtiesZh: ['血液科', '内分泌科', '普外科'], rating: 4.8, patients: '1,100+', beds: '1,700+', founded: '1907', accreditation: 'JCI', intlDept: true, desc: 'Pioneered the "Shanghai Protocol" for leukemia.', descZh: '开创了白血病治疗的"上海方案"。', phone: '+86-21-64370045', flag: '🏦' },
+  { id: 6, name: 'Huashan Hospital International', nameZh: '复旦大学附属华山医院', city: 'Shanghai', cityZh: '上海', region: 'east', specialties: ['Neurology', 'Infectious Disease', 'Dermatology'], specialtiesZh: ['神经科', '感染科', '皮肤科'], rating: 4.7, patients: '800+', beds: '1,700+', founded: '1907', accreditation: 'ISO', intlDept: true, desc: 'Premier neurology center.', descZh: '顶尖的神经科中心。', phone: '+86-21-52889999', flag: '🌟' },
+  { id: 7, name: 'Beijing Tiantan Hospital', nameZh: '北京天坛医院', city: 'Beijing', cityZh: '北京', region: 'north', specialties: ['Neurosurgery', 'Neurology', 'Stroke'], specialtiesZh: ['神经外科', '神经科', '卒中中心'], rating: 4.8, patients: '700+', beds: '1,650+', founded: '1956', accreditation: 'JCI', intlDept: true, desc: 'Ranked among world\'s top 10 for neurological care.', descZh: '全球神经科治疗前十。', phone: '+86-10-59976699', flag: '🧠' },
+  { id: 8, name: 'Beijing Anzhen Hospital', nameZh: '北京安贞医院', city: 'Beijing', cityZh: '北京', region: 'north', specialties: ['Cardiac Surgery', 'Cardiology', 'Vascular Surgery'], specialtiesZh: ['心脏外科', '心脏科', '血管外科'], rating: 4.8, patients: '1,000+', beds: '1,500+', founded: '1984', accreditation: 'ISO', intlDept: true, desc: 'China\'s largest cardiac surgery center.', descZh: '中国最大的心脏外科中心。', phone: '+86-10-64456114', flag: '❤️' },
+  { id: 9, name: 'Sun Yat-sen University Cancer Center', nameZh: '中山大学肿瘤防治中心', city: 'Guangzhou', cityZh: '广州', region: 'south', specialties: ['Oncology', 'Radiation Therapy', 'Cancer Surgery'], specialtiesZh: ['肿瘤科', '放射治疗', '肿瘤外科'], rating: 4.9, patients: '1,300+', beds: '1,800+', founded: '1964', accreditation: 'ISO', intlDept: true, desc: 'China\'s top cancer center.', descZh: '中国顶尖的肿瘤中心。', phone: '+86-20-87343088', flag: '🎗️' },
+  { id: 10, name: 'Zhejiang University First Affiliated', nameZh: '浙江大学附属第一医院', city: 'Hangzhou', cityZh: '杭州', region: 'east', specialties: ['Liver Transplant', 'Infectious Disease', 'Organ Transplant'], specialtiesZh: ['肝移植', '感染科', '器官移植'], rating: 4.7, patients: '600+', beds: '3,600+', founded: '1947', accreditation: 'ISO', intlDept: true, desc: 'National leader in liver transplantation.', descZh: '全国肝移植领域的领导者。', phone: '+86-571-87236666', flag: '🏯' },
+  { id: 11, name: 'Tongji Hospital (Huazhong University)', nameZh: '华中科技大学同济医院', city: 'Wuhan', cityZh: '武汉', region: 'central', specialties: ['Cardiology', 'Oncology', 'Organ Transplant'], specialtiesZh: ['心脏科', '肿瘤科', '器官移植'], rating: 4.7, patients: '500+', beds: '4,000+', founded: '1900', accreditation: 'ISO', intlDept: true, desc: 'Central China\'s premier medical center.', descZh: '华中地区顶尖的医疗中心。', phone: '+86-27-83663300', flag: '🏫' },
+  { id: 12, name: 'Peking University People\'s Hospital', nameZh: '北京大学人民医院', city: 'Beijing', cityZh: '北京', region: 'north', specialties: ['Hematology', 'Orthopedics', 'Trauma Surgery'], specialtiesZh: ['血液科', '骨科', '创伤外科'], rating: 4.7, patients: '800+', beds: '2,000+', founded: '1918', accreditation: 'ISO', intlDept: true, desc: 'World-leading bone marrow transplant center.', descZh: '全球领先的骨髓移植中心。', phone: '+86-10-88324422', flag: '🏤' },
 ]
 
-const CITIES = ['All Cities', 'Beijing', 'Shanghai', 'Guangzhou', 'Chengdu', 'Hangzhou', 'Wuhan']
-const SPECIALTIES = ['All Specialties', 'Oncology', 'Cardiology', 'Orthopedics', 'Neurology', 'Liver Surgery', 'Organ Transplant', 'Hematology']
-
 export default function HospitalsPage() {
+  const { locale, t } = useLanguage()
   const [search, setSearch] = useState('')
   const [city, setCity] = useState('All Cities')
   const [specialty, setSpecialty] = useState('All Specialties')
   const [jciOnly, setJciOnly] = useState(false)
 
+  const isZh = locale === 'zh'
+  
+  const CITIES = isZh 
+    ? ['全部城市', '北京', '上海', '广州', '成都', '杭州', '武汉']
+    : ['All Cities', 'Beijing', 'Shanghai', 'Guangzhou', 'Chengdu', 'Hangzhou', 'Wuhan']
+  
+  const SPECIALTIES = isZh
+    ? ['全部专科', '肿瘤科', '心脏科', '骨科', '神经科', '肝胆外科', '器官移植', '血液科']
+    : ['All Specialties', 'Oncology', 'Cardiology', 'Orthopedics', 'Neurology', 'Liver Surgery', 'Organ Transplant', 'Hematology']
+
   const filtered = ALL_HOSPITALS.filter(h => {
     const matchSearch = h.name.toLowerCase().includes(search.toLowerCase()) ||
+      h.nameZh.includes(search) ||
       h.city.toLowerCase().includes(search.toLowerCase()) ||
-      h.specialties.some(s => s.toLowerCase().includes(search.toLowerCase()))
-    const matchCity = city === 'All Cities' || h.city === city
-    const matchSpec = specialty === 'All Specialties' || h.specialties.includes(specialty)
+      h.cityZh.includes(search)
+    const matchCity = city === 'All Cities' || city === '全部城市' || h.city === city || h.cityZh === city
+    const matchSpec = specialty === 'All Specialties' || specialty === '全部专科' || 
+      h.specialties.includes(specialty) || h.specialtiesZh.includes(specialty)
     const matchJci = !jciOnly || h.accreditation === 'JCI'
     return matchSearch && matchCity && matchSpec && matchJci
   })
@@ -45,101 +56,105 @@ export default function HospitalsPage() {
         {/* Header */}
         <div className="hero-gradient py-16 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-4xl font-extrabold mb-3">Hospital Directory</h1>
-            <p className="text-blue-200 text-lg">Browse China's top hospitals with international medical departments</p>
+            <h1 className="text-4xl font-extrabold mb-3">{t('hospitals.title')}</h1>
+            <p className="text-blue-200 text-lg">{t('hospitals.subtitle')}</p>
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          {/* Filters */}
-          <div className="bg-white rounded-2xl p-6 shadow-sm mb-8 border border-gray-100">
+        {/* Filters */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
+          <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
             <div className="grid md:grid-cols-4 gap-4">
               <input
                 type="text"
-                placeholder="🔍 Search hospitals, cities, specialties..."
+                placeholder={isZh ? "搜索医院..." : "Search hospitals..."}
+                className="px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                 value={search}
-                onChange={e => setSearch(e.target.value)}
-                className="border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 md:col-span-2"
+                onChange={(e) => setSearch(e.target.value)}
               />
               <select
+                className="px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                 value={city}
-                onChange={e => setCity(e.target.value)}
-                className="border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onChange={(e) => setCity(e.target.value)}
               >
-                {CITIES.map(c => <option key={c}>{c}</option>)}
+                {CITIES.map(c => <option key={c} value={c}>{c}</option>)}
               </select>
               <select
+                className="px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                 value={specialty}
-                onChange={e => setSpecialty(e.target.value)}
-                className="border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onChange={(e) => setSpecialty(e.target.value)}
               >
-                {SPECIALTIES.map(s => <option key={s}>{s}</option>)}
+                {SPECIALTIES.map(s => <option key={s} value={s}>{s}</option>)}
               </select>
-            </div>
-            <div className="flex items-center gap-2 mt-3">
-              <input
-                type="checkbox"
-                id="jci"
-                checked={jciOnly}
-                onChange={e => setJciOnly(e.target.checked)}
-                className="w-4 h-4 accent-blue-700"
-              />
-              <label htmlFor="jci" className="text-sm text-gray-600 cursor-pointer">JCI Accredited only</label>
-              <span className="ml-auto text-sm text-gray-400">{filtered.length} hospitals found</span>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={jciOnly}
+                  onChange={(e) => setJciOnly(e.target.checked)}
+                  className="w-5 h-5 rounded border-gray-300 text-blue-600"
+                />
+                <span className="text-sm text-gray-600">JCI {isZh ? '认证' : 'Accredited'}</span>
+              </label>
             </div>
           </div>
+        </div>
 
-          {/* Hospital Grid */}
+        {/* Hospital Grid */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map(h => (
-              <div key={h.id} className="bg-white rounded-2xl border border-gray-200 p-6 card-hover flex flex-col">
-                <div className="flex items-start justify-between mb-3">
-                  <span className="text-3xl">{h.flag}</span>
-                  <div className="flex flex-col items-end gap-1">
-                    <div className="flex items-center gap-1">
-                      <span className="text-yellow-400 text-sm">★</span>
-                      <span className="font-bold text-gray-900 text-sm">{h.rating}</span>
+            {filtered.map(hospital => (
+              <div key={hospital.id} className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="p-6">
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <span className="text-3xl">{hospital.flag}</span>
                     </div>
-                    <span className={`text-xs px-2 py-0.5 rounded-full ${h.accreditation === 'JCI' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'}`}>
-                      {h.accreditation}
-                    </span>
+                    <div className="flex items-center gap-1 bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm">
+                      ⭐ {hospital.rating}
+                    </div>
                   </div>
-                </div>
-
-                <h3 className="font-bold text-gray-900 text-sm mb-0.5">{h.name}</h3>
-                <div className="text-gray-400 text-xs mb-2">{h.nameZh} · Est. {h.founded}</div>
-
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-gray-500 text-xs">📍 {h.city}</span>
-                  <span className="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full">Intl. Dept ✓</span>
-                </div>
-
-                <p className="text-gray-500 text-sm mb-3 flex-1 leading-relaxed">{h.desc}</p>
-
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {h.specialties.map(s => (
-                    <span key={s} className="bg-blue-50 text-blue-700 text-xs px-2 py-0.5 rounded-lg">{s}</span>
-                  ))}
-                </div>
-
-                <div className="border-t border-gray-100 pt-3 flex items-center justify-between">
-                  <span className="text-gray-400 text-xs">🌍 {h.patients} intl/yr</span>
-                  <Link
-                    href={`/get-started?hospital=${encodeURIComponent(h.name)}`}
-                    className="bg-blue-700 text-white text-xs px-4 py-1.5 rounded-lg font-medium hover:bg-blue-800 transition-colors"
-                  >
-                    Book Consultation
-                  </Link>
+                  <h3 className="text-lg font-bold text-gray-900 mb-1">
+                    {isZh ? hospital.nameZh : hospital.name}
+                  </h3>
+                  <p className="text-sm text-gray-500 mb-3">
+                    📍 {isZh ? hospital.cityZh : hospital.city}
+                  </p>
+                  <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                    {isZh ? hospital.descZh : hospital.desc}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {(isZh ? hospital.specialtiesZh : hospital.specialties).slice(0, 3).map((s, i) => (
+                      <span key={i} className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-between text-xs text-gray-500 pt-3 border-t">
+                    <span>{t('hospitals.beds')}: {hospital.beds}</span>
+                    <span>{t('hospitals.accreditation')}: {hospital.accreditation}</span>
+                  </div>
+                  <div className="mt-3 flex gap-2">
+                    <Link
+                      href="/get-started"
+                      className="flex-1 text-center bg-blue-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-blue-700"
+                    >
+                      {isZh ? '立即预约' : 'Book Now'}
+                    </Link>
+                    <a
+                      href={`tel:${hospital.phone}`}
+                      className="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50"
+                    >
+                      📞
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
-
+          
           {filtered.length === 0 && (
-            <div className="text-center py-20 text-gray-400">
-              <div className="text-5xl mb-4">🔍</div>
-              <div className="text-lg font-medium">No hospitals found</div>
-              <div className="text-sm mt-1">Try adjusting your filters</div>
+            <div className="text-center py-12 text-gray-500">
+              {isZh ? '未找到匹配的医院' : 'No hospitals found matching your criteria.'}
             </div>
           )}
         </div>

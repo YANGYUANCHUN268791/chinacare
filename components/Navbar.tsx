@@ -51,12 +51,12 @@ export default function Navbar() {
             <Link href="/how-it-works" className="text-gray-600 hover:text-blue-700 font-medium transition-colors">
               {t('navbar.howItWorks')}
             </Link>
-            <Link href="/specialties" className="text-gray-600 hover:text-blue-700 font-medium transition-colors">
+            <a href="#hospitals" className="text-gray-600 hover:text-blue-700 font-medium transition-colors">
               {t('navbar.specialties')}
-            </Link>
-            <Link href="/about" className="text-gray-600 hover:text-blue-700 font-medium transition-colors">
+            </a>
+            <a href="#hospitals" className="text-gray-600 hover:text-blue-700 font-medium transition-colors">
               {t('navbar.about')}
-            </Link>
+            </a>
           </div>
 
           {/* CTA Buttons & Language Selector */}
@@ -126,9 +126,9 @@ export default function Navbar() {
             <div className="flex flex-col gap-3">
               <Link href="/hospitals" className="text-gray-700 font-medium py-2">{t('navbar.hospitals')}</Link>
               <Link href="/how-it-works" className="text-gray-700 font-medium py-2">{t('navbar.howItWorks')}</Link>
-              <Link href="/specialties" className="text-gray-700 font-medium py-2">{t('navbar.specialties')}</Link>
-              <Link href="/about" className="text-gray-700 font-medium py-2">{t('navbar.about')}</Link>
-              <Link href="/consult" className="text-blue-700 font-medium py-2">{t('navbar.freeConsultation')}</Link>
+              <a href="#hospitals" className="text-gray-700 font-medium py-2">{t('navbar.specialties')}</a>
+              <a href="#hospitals" className="text-gray-700 font-medium py-2">{t('navbar.about')}</a>
+              <a href="#ai-chat" className="text-blue-700 font-medium py-2">{t('navbar.freeConsultation')}</a>
               <Link href="/get-started" className="bg-blue-700 text-white px-4 py-2 rounded-lg font-medium text-center mt-2">
                 {t('navbar.getStarted')}
               </Link>
