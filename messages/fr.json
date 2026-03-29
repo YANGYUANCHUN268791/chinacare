@@ -1,0 +1,195 @@
+{
+  "navbar": {
+    "hospitals": "Hôpitaux",
+    "howItWorks": "Comment ça marche",
+    "specialties": "Spécialités",
+    "about": "À propos",
+    "freeConsultation": "Consultation gratuite",
+    "getStarted": "Commencer"
+  },
+  "hero": {
+    "availableHospitals": "500+ hôpitaux internationaux disponibles",
+    "title": "Soins médicaux",
+    "subtitle": "de classe mondiale",
+    "inChina": "en Chine",
+    "description": "Accédez aux meilleurs hôpitaux chinois avec des départements internationaux dédiés. Planification des soins IA, support multilingue et assistance complète — de la consultation à la guérison.",
+    "partnerHospitals": "Hôpitaux partenaires",
+    "countriesServed": "Pays desservis",
+    "patientsHelped": "Patients aidés",
+    "startJourney": "Commencez votre voyage",
+    "browseHospitals": "Parcourir les hôpitaux",
+    "freeConsultation": "Consultation initiale gratuite",
+    "noHiddenFees": "Sans frais cachés",
+    "support247": "Support 24h/24",
+    "aiGreeting": "👋 Bonjour ! Parlez-moi de vos besoins médicaux et je trouverai les meilleurs hôpitaux en Chine pour vous.",
+    "aiAnalyzing": "Analyse de vos besoins...",
+    "quickTags": {
+      "cardiacSurgery": "Chirurgie cardiaque",
+      "oncology": "Oncologie",
+      "orthopedics": "Orthopédie",
+      "tcm": "Médecine chinoise",
+      "neurology": "Neurologie",
+      "liverTransplant": "Greffe du foie"
+    },
+    "availableLanguages": "🌍 Disponible en Français · English · العربية · Español · Русский"
+  },
+  "howItWorks": {
+    "tagline": "Processus simple",
+    "title": "Comment ChinaCare fonctionne",
+    "subtitle": "De votre première question à votre premier rendez-vous — nous gérons tout.",
+    "steps": [
+      {
+        "title": "Décrivez vos besoins",
+        "desc": "Parlez à notre IA de votre état, diagnostic ou objectifs de traitement. Téléchargez vos rapports si vous en avez."
+      },
+      {
+        "title": "Obtenez une correspondance",
+        "desc": "Notre IA analyse votre cas et vous met en relation avec les meilleurs hôpitaux et spécialistes en Chine."
+      },
+      {
+        "title": "Recevez votre plan",
+        "desc": "Obtenez un plan de soins détaillé : recommandations d'hôpitaux, coûts estimés, calendrier et guide de visa."
+      },
+      {
+        "title": "Voyagez et guérirez",
+        "desc": "Nous coordonnons vos rendez-vous, hébergement, traduction et support sur place."
+      }
+    ]
+  },
+  "whyChina": {
+    "tagline": "Pourquoi choisir la Chine",
+    "title": "Le choix intelligent pour les patients internationaux",
+    "subtitle": "Des millions de patients internationaux choisissent la Chine chaque année. Voici pourquoi :",
+    "reasons": [
+      {
+        "title": "Hôpitaux de classe mondiale",
+        "desc": "La Chine compte plus de 50 hôpitaux parmi les 200 premiers au monde. Beaucoup sont spécialisés dans des conditions avec de longs délais d'attente ailleurs."
+      },
+      {
+        "title": "Soins économiques",
+        "desc": "Traitements de haute qualité à un coût 30-70% inférieur aux États-Unis, au Royaume-Uni ou en Australie — sans compromis sur la qualité."
+      },
+      {
+        "title": "Accès rapide",
+        "desc": "Pas de listes d'attente de 6 mois. La plupart des patients obtiennent un rendez-vous sous 1-2 semaines."
+      },
+      {
+        "title": "Départements internationaux",
+        "desc": "Départements médicaux internationaux dédiés avec personnel anglophone et expérience avec les patients du monde entier."
+      },
+      {
+        "title": "Technologie avancée",
+        "desc": "Équipement de pointe, essais cliniques et traitements pas encore disponibles dans de nombreux pays."
+      },
+      {
+        "title": "Traditionnel + Moderne",
+        "desc": "Accès unique à la médecine traditionnelle chinoise intégrée au traitement moderne basé sur des preuves."
+      }
+    ]
+  },
+  "costComparison": {
+    "tagline": "Comparaison des coûts",
+    "title": "Soins de classe mondiale à une fraction du prix",
+    "subtitle": "Même qualité. Même technologie. Prix considérablement plus bas.",
+    "procedure": "Intervention",
+    "usa": "USA",
+    "uk": "Royaume-Uni",
+    "china": "Chine",
+    "savings": "Votre économie",
+    "procedures": [
+      {
+        "name": "Chirurgie de pontage coronarien",
+        "usa": "$100,000–$200,000",
+        "uk": "$40,000–$80,000",
+        "china": "$15,000–$35,000",
+        "saving": "Économisez jusqu'à 85%"
+      },
+      {
+        "name": "Remplacement de hanche",
+        "usa": "$30,000–$50,000",
+        "uk": "$15,000–$25,000",
+        "china": "$8,000–$15,000",
+        "saving": "Économisez jusqu'à 75%"
+      },
+      {
+        "name": "Traitement du cancer (chimiothérapie)",
+        "usa": "$50,000–$150,000",
+        "uk": "$30,000–$80,000",
+        "china": "$10,000–$40,000",
+        "saving": "Économisez jusqu'à 80%"
+      },
+      {
+        "name": "Greffe du foie",
+        "usa": "$300,000–$500,000",
+        "uk": "$120,000–$200,000",
+        "china": "$40,000–$80,000",
+        "saving": "Économisez jusqu'à 87%"
+      }
+    ],
+    "footnote": "* Les prix sont des estimations. Les coûts réels varient selon l'hôpital, la gravité de la condition et le plan de traitement. ChinaCare fournit des prix transparents avant tout engagement."
+  },
+  "hospitals": {
+    "tagline": "Hôpitaux partenaires",
+    "title": "Meilleurs hôpitaux avec départements internationaux",
+    "subtitle": "Tous les hôpitaux partenaires ont des départements médicaux internationaux dédiés avec personnel anglophone et expérience prouvée avec les patients internationaux.",
+    "viewAll": "Voir tous les 500+ hôpitaux",
+    "viewDetails": "Voir les détails →",
+    "intlDept": "Dept. Intl.",
+    "beds": "lits",
+    "intlPatients": "patients intl./an",
+    "accreditation": "Accréditation"
+  },
+  "testimonials": {
+    "tagline": "Histoires de patients",
+    "title": "Vrais patients, vrais résultats",
+    "subtitle": "Des milliers de patients internationaux ont trouvé leurs soins grâce à ChinaCare."
+  },
+  "cta": {
+    "title": "Prêt à commencer",
+    "titleHighlight": "Voyage médical ?",
+    "subtitle": "Obtenez un plan de soins gratuit alimenté par l'IA en quelques minutes. Pas d'engagement requis. Notre équipe est disponible 24h/24 dans votre langue.",
+    "getFreePlan": "Obtenir un plan gratuit",
+    "talkToCoordinator": "Parler à un coordinateur",
+    "freeConsultation": "Consultation gratuite",
+    "noWaitingLists": "Sans listes d'attente",
+    "multilingualSupport": "Support multilingue",
+    "transparentPricing": "Tarification transparente"
+  },
+  "footer": {
+    "brand": "Connecter les patients internationaux aux ressources médicales chinoises de classe mondiale.",
+    "availableLanguages": "🌍 Disponible en 5 langues",
+    "support": "📞 Support 24/7",
+    "hospitals": "Hôpitaux",
+    "specialties": "Spécialités",
+    "company": "Entreprise",
+    "beijing": "Hôpitaux de Beijing",
+    "shanghai": "Hôpitaux de Shanghai",
+    "guangzhou": "Hôpitaux de Guangzhou",
+    "chengdu": "Hôpitaux de Chengdu",
+    "allHospitals": "Tous les hôpitaux →",
+    "oncology": "Oncologie",
+    "cardiology": "Cardiologie",
+    "orthopedics": "Orthopédie",
+    "neurology": "Neurologie",
+    "tcm": "Médecine traditionnelle chinoise",
+    "aboutUs": "À propos",
+    "howItWorks": "Comment ça marche",
+    "pricing": "Tarifs",
+    "blog": "Blog",
+    "contact": "Contact",
+    "copyright": "© 2025 ChinaCare. Tous droits réservés.",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation",
+    "disclaimer": "Avertissement médical"
+  },
+  "ai": {
+    "cardiac": "❤️ Pour les pathologies cardiaques, je recommande **Beijing Anzhen Hospital** et **Zhongshan Hospital Shanghai** — tous deux ont des équipes de chirurgie cardiaque de classe mondiale avec disponibilité sous 2 semaines. Coût estimé : 8 000$–25 000$ selon l'intervention. Dois-je préparer un plan détaillé ?",
+    "cancer": "🎗️ Pour l'oncologie, les meilleurs centres chinois incluent **Peking Union Medical College Hospital** et **Sun Yat-sen University Cancer Center**. Beaucoup proposent des traitements pas encore disponibles ailleurs. Voulez-vous que je vous mette en rapport selon votre type de cancer spécifique ?",
+    "orthopedic": "🦴 Pour les soins orthopédiques, **West China Hospital (Chengdu)** et **Peking University Third Hospital** sont classés n°1 au niveau national. Les temps d'attente pour le remplacement articulaire et la chirurgie de la colonne sont généralement inférieurs à 2 semaines. Voulez-vous une estimation des coûts ?",
+    "tcm": "🌿 La médecine traditionnelle chinoise est disponible dans des hôpitaux spécialisés à Beijing, Shanghai et Guangzhou. Beaucoup intègrent la médecine chinoise au traitement moderne. Quelle condition souhaitez-vous traiter ?",
+    "neuro": "🧠 Pour la neurologie et la neurochirurgie, **Beijing Tiantan Hospital** est classé parmi les 10 premiers au monde pour les soins neurologiques. Dois-je trouver des spécialistes pour votre condition spécifique ?",
+    "liver": "🏥 La Chine est leader mondial en transplantation hépatique. **Zhongshan Hospital** et **West China Hospital** realizan plus de 1 000 transplantations hépatiques par an. Les temps d'attente sont considérablement plus courts que dans la plupart des pays.",
+    "default": "👋 Merci pour ces informations. Selon vos besoins, je peux vous mettre en relation avec les meilleurs hôpitaux en Chine. Pouvez-vous m'en dire plus sur votre condition ou votre diagnostic ? Je préparerai un plan de soins personnalisé avec des recommandations d'hôpings, des coûts estimés et les prochaines étapes.",
+    "inputPlaceholder": "Décrivez vos besoins médicaux..."
+  }
+}

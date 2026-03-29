@@ -1,0 +1,195 @@
+{
+  "navbar": {
+    "hospitals": "Hospitals",
+    "howItWorks": "How It Works",
+    "specialties": "Specialties",
+    "about": "About",
+    "freeConsultation": "Free Consultation",
+    "getStarted": "Get Started"
+  },
+  "hero": {
+    "availableHospitals": "500+ International Hospitals Available",
+    "title": "World-Class",
+    "subtitle": "Medical Care",
+    "inChina": "in China",
+    "description": "Access China's top hospitals with dedicated international departments. AI-powered care planning, multilingual support, and full journey assistance — from consultation to recovery.",
+    "partnerHospitals": "Partner Hospitals",
+    "countriesServed": "Countries Served",
+    "patientsHelped": "Patients Helped",
+    "startJourney": "Start Your Journey",
+    "browseHospitals": "Browse Hospitals",
+    "freeConsultation": "Free initial consultation",
+    "noHiddenFees": "No hidden fees",
+    "support247": "24/7 support",
+    "aiGreeting": "👋 Hello! Tell me about your medical needs and I'll find the best hospitals in China for you.",
+    "aiAnalyzing": "Analyzing your needs...",
+    "quickTags": {
+      "cardiacSurgery": "Cardiac Surgery",
+      "oncology": "Oncology",
+      "orthopedics": "Orthopedics",
+      "tcm": "TCM",
+      "neurology": "Neurology",
+      "liverTransplant": "Liver Transplant"
+    },
+    "availableLanguages": "🌍 Available in English · العربية · Français · Español · Русский"
+  },
+  "howItWorks": {
+    "tagline": "Simple Process",
+    "title": "How ChinaCare Works",
+    "subtitle": "From your first question to your first appointment — we handle everything.",
+    "steps": [
+      {
+        "title": "Describe Your Needs",
+        "desc": "Tell our AI about your condition, diagnosis, or treatment goals. Upload reports if you have them."
+      },
+      {
+        "title": "Get Matched",
+        "desc": "Our AI analyzes your case and matches you with the best hospitals and specialists in China."
+      },
+      {
+        "title": "Receive Your Plan",
+        "desc": "Get a detailed care plan: hospital recommendations, estimated costs, timeline, and visa guidance."
+      },
+      {
+        "title": "Travel & Heal",
+        "desc": "We coordinate your appointment, accommodation, translation, and on-ground support."
+      }
+    ]
+  },
+  "whyChina": {
+    "tagline": "Why Choose China",
+    "title": "The Smart Choice for Global Patients",
+    "subtitle": "Millions of international patients choose China every year. Here's why.",
+    "reasons": [
+      {
+        "title": "World-Ranked Hospitals",
+        "desc": "China has 50+ hospitals ranked in global top 200. Many specialize in conditions with long wait times elsewhere."
+      },
+      {
+        "title": "Cost-Effective Care",
+        "desc": "High-quality treatment at 30–70% lower cost than the US, UK, or Australia — without compromising quality."
+      },
+      {
+        "title": "Fast Access",
+        "desc": "No 6-month waiting lists. Most patients get appointments within 1–2 weeks of inquiry."
+      },
+      {
+        "title": "International Departments",
+        "desc": "Dedicated international medical departments with English-speaking staff and global patient experience."
+      },
+      {
+        "title": "Advanced Technology",
+        "desc": "Cutting-edge equipment, clinical trials, and treatments not yet available in many countries."
+      },
+      {
+        "title": "Traditional + Modern",
+        "desc": "Unique access to Traditional Chinese Medicine integrated with modern evidence-based treatment."
+      }
+    ]
+  },
+  "costComparison": {
+    "tagline": "Cost Comparison",
+    "title": "World-Class Care at a Fraction of the Cost",
+    "subtitle": "Same quality. Same technology. Dramatically lower prices.",
+    "procedure": "Procedure",
+    "usa": "USA",
+    "uk": "UK",
+    "china": "China",
+    "savings": "Your Savings",
+    "procedures": [
+      {
+        "name": "Heart Bypass Surgery",
+        "usa": "$100,000–$200,000",
+        "uk": "$40,000–$80,000",
+        "china": "$15,000–$35,000",
+        "saving": "Save up to 85%"
+      },
+      {
+        "name": "Hip Replacement",
+        "usa": "$30,000–$50,000",
+        "uk": "$15,000–$25,000",
+        "china": "$8,000–$15,000",
+        "saving": "Save up to 75%"
+      },
+      {
+        "name": "Cancer Treatment (Chemo)",
+        "usa": "$50,000–$150,000",
+        "uk": "$30,000–$80,000",
+        "china": "$10,000–$40,000",
+        "saving": "Save up to 80%"
+      },
+      {
+        "name": "Liver Transplant",
+        "usa": "$300,000–$500,000",
+        "uk": "$120,000–$200,000",
+        "china": "$40,000–$80,000",
+        "saving": "Save up to 87%"
+      }
+    ],
+    "footnote": "* Prices are estimates. Actual costs vary by hospital, condition severity, and treatment plan. ChinaCare provides transparent pricing before any commitment."
+  },
+  "hospitals": {
+    "tagline": "Partner Hospitals",
+    "title": "Top Hospitals with International Departments",
+    "subtitle": "All partner hospitals have dedicated international medical departments with English-speaking staff and proven track records with global patients.",
+    "viewAll": "View All 500+ Hospitals",
+    "viewDetails": "View Details →",
+    "intlDept": "Intl. Dept",
+    "beds": "beds",
+    "intlPatients": "intl. patients/yr",
+    "accreditation": "Accreditation"
+  },
+  "testimonials": {
+    "tagline": "Patient Stories",
+    "title": "Real Patients, Real Results",
+    "subtitle": "Thousands of international patients have found their care through ChinaCare."
+  },
+  "cta": {
+    "title": "Ready to Start Your",
+    "subtitle": "Get a free AI-powered care plan in minutes. No commitment required. Our team is available 24/7 in your language.",
+    "getFreePlan": "Get Free Care Plan",
+    "talkToCoordinator": "Talk to a Coordinator",
+    "freeConsultation": "Free consultation",
+    "noWaitingLists": "No waiting lists",
+    "multilingualSupport": "Multilingual support",
+    "transparentPricing": "Transparent pricing",
+    "titleHighlight": "Medical Journey?"
+  },
+  "footer": {
+    "brand": "Connecting global patients with China's world-class medical resources.",
+    "availableLanguages": "🌍 Available in 5 languages",
+    "support": "📞 24/7 Support",
+    "hospitals": "Hospitals",
+    "specialties": "Specialties",
+    "company": "Company",
+    "beijing": "Beijing Hospitals",
+    "shanghai": "Shanghai Hospitals",
+    "guangzhou": "Guangzhou Hospitals",
+    "chengdu": "Chengdu Hospitals",
+    "allHospitals": "All Hospitals →",
+    "oncology": "Oncology",
+    "cardiology": "Cardiology",
+    "orthopedics": "Orthopedics",
+    "neurology": "Neurology",
+    "tcm": "Traditional Chinese Medicine",
+    "aboutUs": "About Us",
+    "howItWorks": "How It Works",
+    "pricing": "Pricing",
+    "blog": "Blog",
+    "contact": "Contact",
+    "copyright": "© 2025 ChinaCare. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "disclaimer": "Medical Disclaimer"
+  },
+  "ai": {
+    "cardiac": "❤️ For cardiac conditions, I recommend **Beijing Anzhen Hospital** and **Zhongshan Hospital Shanghai** — both have world-class cardiac surgery teams with availability within 2 weeks. Estimated cost: $8,000–$25,000 depending on procedure. Shall I prepare a detailed plan?",
+    "cancer": "🎗️ For oncology, China's top centers include **Peking Union Medical College Hospital** and **Sun Yat-sen University Cancer Center**. Many offer treatments not yet available elsewhere. Would you like me to match you based on your specific cancer type?",
+    "orthopedic": "🦴 For orthopedic care, **West China Hospital (Chengdu)** and **Peking University Third Hospital** are ranked #1 nationally. Joint replacement and spine surgery wait times are typically under 2 weeks. Want a cost estimate?",
+    "tcm": "🌿 Traditional Chinese Medicine is available at specialized hospitals across Beijing, Shanghai, and Guangzhou. Many integrate TCM with modern treatment. What condition are you looking to treat?",
+    "neuro": "🧠 For neurology and neurosurgery, **Beijing Tiantan Hospital** is ranked among the world's top 10 for neurological care. Shall I find specialists for your specific condition?",
+    "liver": "🏥 China leads globally in liver transplantation. **Zhongshan Hospital** and **West China Hospital** perform over 1,000 liver transplants annually. Waiting times are significantly shorter than in most countries.",
+    "default": "👋 Thank you for sharing that. Based on your needs, I can match you with the best hospitals in China. Could you tell me more about your condition or diagnosis? I'll prepare a personalized care plan with hospital recommendations, estimated costs, and next steps.",
+    "inputPlaceholder": "Describe your medical needs..."
+  }
+}
