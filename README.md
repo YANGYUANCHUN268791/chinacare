@@ -1,73 +1,61 @@
-# ChinaCare — 外国人来华就医门户网站
+# ChinaCare — Medical Portal for Foreign Patients
 
-## 项目结构
+A multilingual medical portal website for foreign patients seeking healthcare services in China's top hospitals.
 
+## Features
+- **6 Language Support**: Chinese, English, Arabic, French, Spanish, Russian
+- **12 Top Hospitals**: Detailed information on China's best medical institutions
+- **AI Chat Assistant**: AI-powered conversation interface for patient guidance
+- **Booking System**: Multi-language appointment forms
+- **Process Guides**: Step-by-step guides for foreign patients
+
+## Tech Stack
+- **Framework**: Next.js 15.1.0
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Runtime**: Node.js
+- **i18n**: Client-side LanguageProvider
+
+## Project Structure
 ```
-china-medical-portal/
-├── app/
-│   ├── layout.tsx        # 根布局
-│   ├── page.tsx          # 首页
-│   └── globals.css       # 全局样式
-├── components/
-│   ├── Navbar.tsx        # 导航栏
-│   ├── Hero.tsx          # 首屏（含AI对话卡片）
-│   ├── HowItWorks.tsx    # 流程说明
-│   ├── WhyChina.tsx      # 为什么选中国
-│   ├── HospitalHighlights.tsx  # 医院展示
-│   ├── Testimonials.tsx  # 患者故事
-│   ├── CTASection.tsx    # 行动召唤
-│   └── Footer.tsx        # 页脚
-├── package.json
-├── tailwind.config.js
-├── next.config.js
-├── tsconfig.json
-└── postcss.config.js
+app/
+├── layout.tsx            // Root layout
+├── page.tsx             // Homepage
+├── hospitals/
+├── processes/
+├── booking/
+├── chat/
+├── contact/
+components/              // Reusable components
+messages/                // Translation files (6 languages)
 ```
 
-## 本地运行
+## Deployment
+- **GitHub**: https://github.com/YANGYUANCHUN268791/chinacare
+- **Cloudflare Pages**: https://chinacare.pages.dev
+- **Railway**: railway.app project
+- **Vercel**: Vercel deployment
 
-### 前提：需要 Node.js 18+
-
-如果没有安装，下载地址：https://nodejs.org/
-
-### 启动步骤
-
+## Setup & Run
 ```bash
-# 1. 进入项目目录
-cd china-medical-portal
+# Clone repo
+git clone https://github.com/YANGYUANCHUN268791/chinacare
 
-# 2. 安装依赖（首次运行）
+# Install dependencies
 npm install
 
-# 3. 启动开发服务器
+# Development
 npm run dev
 
-# 4. 浏览器打开
-# http://localhost:3000
+# Build
+npm run build
+
+# Production
+npm run start
 ```
 
-## 部署到 Vercel（免费）
-
-```bash
-# 安装 Vercel CLI
-npm i -g vercel
-
-# 部署
-vercel
-
-# 按提示操作，几分钟后获得公网 URL
-```
-
-## 下一步开发计划
-
-- [ ] 医院列表页（/hospitals）
-- [ ] 医院详情页（/hospitals/[id]）
-- [ ] AI问诊页面（/consult）
-- [ ] 预约表单（/get-started）
-- [ ] 多语言支持（英/阿/法/西/俄）
-- [ ] 后台管理系统
-- [ ] 支付集成
-
-## 完整方案
-
-见 PLAN.md
+## Future Enhancements
+- Integration with real OpenAI API for chat
+- Hospital API connections for booking system
+- Payment gateway integration
+- Mobile app version
