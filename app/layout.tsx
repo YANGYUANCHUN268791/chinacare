@@ -3,6 +3,7 @@ import './globals.css'
 import { LanguageProvider } from '@/components/LanguageProvider'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://healthroute.xyz'),
   title: {
     default: 'ChinaCare — World-Class Medical Care in China',
     template: '%s | ChinaCare',
@@ -18,13 +19,14 @@ export const metadata: Metadata = {
     'cancer treatment China',
     'cardiac surgery China',
     'affordable healthcare China',
+    'medical travel China',
+    'health route China',
   ],
   authors: [{ name: 'ChinaCare' }],
   creator: 'ChinaCare',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://chinacare.com',
     siteName: 'ChinaCare',
     title: 'ChinaCare — World-Class Medical Care in China',
     description: 'Connect with China\'s top hospitals. AI-powered care planning, multilingual support, and full journey assistance.',
