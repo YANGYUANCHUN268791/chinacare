@@ -1,13 +1,19 @@
 import Stripe from 'stripe'
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  console.warn('STRIPE_SECRET_KEY is not set. Payment features will not work.')
-}
+let _stripe: Stripe | null = null
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2024-12-18.acacia',
-  typescript: true,
-})
+export function getStripe(): Stripe {
+  if (!_stripe) {
+    if (!process.env.STRIPE_SECRET_KEY) {
+      throw new Error('STRIPE_SECRET_KEY is not set')
+    }
+    _stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: '2025-02-24.acacia',
+      typescript: true,
+    })
+  }
+  return _stripe
+}
 
 // Plan prices (Stripe Price IDs - replace with your actual Price IDs after creating products in Stripe Dashboard)
 export const PLAN_PRICES: Record<string, { priceId: string; name: string }> = {
@@ -32,7 +38,7 @@ export async function createCheckoutSession(
     throw new Error('Invalid plan ID')
   }
 
-  const session = await stripe.checkout.sessions.create({
+  const session = await getStripe().checkout.sessions.create({
     payment_method_types: ['card'],
     line_items: [
       {
