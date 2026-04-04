@@ -57,6 +57,9 @@ export default function Navbar() {
             <a href="#hospitals" className="text-gray-600 hover:text-blue-700 font-medium transition-colors">
               {t('navbar.specialties')}
             </a>
+            <Link href="/contact" className="text-gray-600 hover:text-blue-700 font-medium transition-colors">
+              {t('navbar.about') || 'Contact'}
+            </Link>
           </div>
 
           {/* CTA Buttons & Language Selector */}
