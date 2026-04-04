@@ -54,11 +54,11 @@ export default function Navbar() {
             <Link href="/pricing" className="text-gray-600 hover:text-blue-700 font-medium transition-colors">
               {t('navbar.pricing')}
             </Link>
-            <a href="#hospitals" className="text-gray-600 hover:text-blue-700 font-medium transition-colors">
-              {t('navbar.specialties')}
-            </a>
-            <Link href="/contact" className="text-gray-600 hover:text-blue-700 font-medium transition-colors">
-              {t('navbar.about') || 'Contact'}
+            <Link href="/stories" className="text-gray-600 hover:text-blue-700 font-medium transition-colors">
+              Stories
+            </Link>
+            <Link href="/about" className="text-gray-600 hover:text-blue-700 font-medium transition-colors">
+              About
             </Link>
           </div>
 
