@@ -100,16 +100,20 @@ export async function POST(req: NextRequest) {
       })
     }
 
+    // DeepSeek configuration (OpenAI-compatible API)
+    const baseURL = process.env.AI_BASE_URL || 'https://api.deepseek.com/v1'
+    const model = process.env.AI_MODEL || 'deepseek-chat'
+
     const systemPrompt = HOSPITAL_CONTEXT + `\n\nCurrent user language preference: ${locale}. Respond in the same language as the user's message.`
 
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    const response = await fetch(`${baseURL}/chat/completions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model: model,
         messages: [
           { role: 'system', content: systemPrompt },
           ...messages.slice(-6), // Keep last 6 messages for context
