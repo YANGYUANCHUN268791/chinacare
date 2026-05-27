@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { useLanguage } from './LanguageProvider'
+import { trackEvent, Events } from '@/lib/analytics'
 
 const languages = [
   { code: 'zh', name: '中文', flag: '🇨🇳' },
@@ -95,6 +96,7 @@ export default function Navbar() {
                       onClick={() => {
                         setLocale(lang.code)
                         setLangOpen(false)
+                        trackEvent(Events.LANGUAGE_SWITCH(lang.code))
                       }}
                       className={`w-full flex items-center gap-3 px-4 py-2 text-left hover:bg-blue-50 transition-colors ${
                         locale === lang.code ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
@@ -146,6 +148,7 @@ export default function Navbar() {
                       onClick={() => {
                         setLocale(lang.code)
                         setMenuOpen(false)
+                        trackEvent(Events.LANGUAGE_SWITCH(lang.code))
                       }}
                       className={`flex items-center gap-1 px-3 py-1 rounded-lg text-sm ${
                         locale === lang.code

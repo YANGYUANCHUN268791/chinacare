@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { useLanguage } from './LanguageProvider'
+import { trackEvent, Events } from '@/lib/analytics'
 
 function getReply(input: string, t: (key: string) => string): string {
   const lower = input.toLowerCase()
@@ -43,6 +44,8 @@ export default function Hero() {
     setMessages(prev => [...prev, userMsg])
     setInput('')
     setLoading(true)
+    // 追踪 AI 聊天事件
+    trackEvent(messages.length === 0 ? Events.AI_CHAT_START : Events.AI_CHAT_SEND)
 
     // Add to history
     historyRef.current.push({ role: 'user', content: text })
@@ -203,7 +206,7 @@ export default function Hero() {
                 {quickTags.map(tag => (
                   <button
                     key={tag}
-                    onClick={() => sendMessage(tag)}
+                    onClick={() => { trackEvent(Events.AI_CHAT_QUICK_TAG(tag)); sendMessage(tag) }}
                     className="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded-full cursor-pointer hover:bg-blue-100 hover:text-blue-700 transition-colors"
                   >
                     {tag}
