@@ -192,5 +192,33 @@
     "liver": "China leads globally in liver transplantation. Zhongshan Hospital and West China Hospital perform over 1,000 liver transplants annually. Waiting times are significantly shorter than in most countries.",
     "default": "Thank you for sharing that. Based on your needs, I can match you with the best hospitals in China. Could you tell me more about your condition or diagnosis? I'll prepare a personalized care plan with hospital recommendations, estimated costs, and next steps.",
     "inputPlaceholder": "Describe your medical needs..."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "success": "Thank you! Your message has been sent successfully. We will contact you within 24 hours.",
+    "error": "Sorry, there was an error. Please try again or contact us directly.",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phone": "Phone / WhatsApp",
+    "age": "Age",
+    "country": "Country",
+    "specialty": "Medical Specialty Needed",
+    "selectSpecialty": "Select a specialty...",
+    "condition": "Condition Description",
+    "conditionPlaceholder": "Please describe your medical condition or reason for visiting...",
+    "urgency": "Urgency",
+    "urgencyRoutine": "Routine (within 3 months)",
+    "urgencyUrgent": "Urgent (within 1 month)",
+    "urgencyEmergency": "Emergency (ASAP)",
+    "hospital": "Preferred Hospital (Optional)",
+    "hospitalPlaceholder": "e.g., Peking Union Medical College Hospital",
+    "budget": "Budget Range (USD)",
+    "selectBudget": "Select budget range...",
+    "undecided": "Undecided",
+    "travelMonth": "Preferred Travel Month",
+    "additionalInfo": "Additional Information (Optional)",
+    "additionalInfoPlaceholder": "Any other details you would like to share...",
+    "submitting": "Submitting...",
+    "submit": "Submit Inquiry"
   }
 }

@@ -192,5 +192,33 @@
     "liver": "🏥 中国在全球肝移植领域领先。**中山医院**和**华西医院**每年进行超过1000例肝移植。等待时间比大多数国家短得多。",
     "default": "👋 感谢您的分享。根据您的需求，我可以为您匹配中国最好的医院。您能告诉我更多关于您的病情或诊断吗？我将为您准备个性化的就医方案，包括医院推荐、预估费用和下一步流程。",
     "inputPlaceholder": "描述您的医疗需求..."
+  },
+  "contact": {
+    "title": "联系我们",
+    "success": "✅ 提交成功！我们将在24小时内联系您。",
+    "error": "抱歉，提交出现错误。请重试或直接联系我们。",
+    "firstName": "名字",
+    "lastName": "姓氏",
+    "phone": "电话 / WhatsApp",
+    "age": "年龄",
+    "country": "国家",
+    "specialty": "所需医疗专科",
+    "selectSpecialty": "选择专科...",
+    "condition": "病情描述",
+    "conditionPlaceholder": "请描述您的病情或就诊原因...",
+    "urgency": "紧急程度",
+    "urgencyRoutine": "常规（3个月内）",
+    "urgencyUrgent": "紧急（1个月内）",
+    "urgencyEmergency": "急诊（尽快）",
+    "hospital": "首选医院（可选）",
+    "hospitalPlaceholder": "例如：北京协和医院",
+    "budget": "预算范围（美元）",
+    "selectBudget": "选择预算范围...",
+    "undecided": "未确定",
+    "travelMonth": "预计出行月份",
+    "additionalInfo": "补充信息（可选）",
+    "additionalInfoPlaceholder": "其他您想分享的信息...",
+    "submitting": "提交中...",
+    "submit": "提交咨询"
   }
 }
