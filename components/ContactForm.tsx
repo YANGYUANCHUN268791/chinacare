@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { useLanguage } from '@/components/LanguageProvider';
@@ -70,18 +70,18 @@ export default function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8">
       <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-        {t('contact.title', 'Contact Us')}
+        {t('') || ''}
       </h2>
 
       {submitStatus === 'success' && (
         <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-800">
-          {t('contact.success', 'Thank you! Your message has been sent successfully. We will contact you within 24 hours.')}
+          {t('') || ''}
         </div>
       )}
 
       {submitStatus === 'error' && (
         <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
-          {t('contact.error', 'Sorry, there was an error. Please try again or contact us directly.')}
+          {t('') || ''}
         </div>
       )}
 
@@ -89,7 +89,7 @@ export default function ContactForm() {
         {/* First Name */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t('contact.firstName', 'First Name')} *
+            {t('') || ''} *
           </label>
           <input
             type="text"
@@ -104,7 +104,7 @@ export default function ContactForm() {
         {/* Last Name */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t('contact.lastName', 'Last Name')} *
+            {t('') || ''} *
           </label>
           <input
             type="text"
@@ -134,7 +134,7 @@ export default function ContactForm() {
         {/* Phone */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t('contact.phone', 'Phone / WhatsApp')} *
+            {t('') || ''} *
           </label>
           <input
             type="tel"
@@ -149,7 +149,7 @@ export default function ContactForm() {
         {/* Age */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t('contact.age', 'Age')}
+            {t('') || ''}
           </label>
           <input
             type="number"
@@ -163,7 +163,7 @@ export default function ContactForm() {
         {/* Country */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t('contact.country', 'Country')} *
+            {t('') || ''} *
           </label>
           <input
             type="text"
@@ -178,7 +178,7 @@ export default function ContactForm() {
         {/* Specialty */}
         <div className="md:col-span-2">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t('contact.specialty', 'Medical Specialty Needed')} *
+            {t('') || ''} *
           </label>
           <select
             name="specialty"
@@ -187,21 +187,21 @@ export default function ContactForm() {
             onChange={handleChange}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
-            <option value="">{t('contact.selectSpecialty', 'Select a specialty...')}</option>
-            <option value="cardiology">Cardiology (心脏科)</option>
-            <option value="oncology">Oncology (肿瘤科)</option>
-            <option value="neurology">Neurology (神经科)</option>
-            <option value="orthopedics">Orthopedics (骨科)</option>
-            <option value="general">General Surgery (普外科)</option>
-            <option value="checkup">Comprehensive Checkup (全面体检)</option>
-            <option value="other">Other (其他)</option>
+            <option value="">{t('') || ''}</option>
+            <option value="cardiology">Cardiology (蹇冭剰绉?</option>
+            <option value="oncology">Oncology (鑲跨槫绉?</option>
+            <option value="neurology">Neurology (绁炵粡绉?</option>
+            <option value="orthopedics">Orthopedics (楠ㄧ)</option>
+            <option value="general">General Surgery (鏅绉?</option>
+            <option value="checkup">Comprehensive Checkup (鍏ㄩ潰浣撴)</option>
+            <option value="other">Other (鍏朵粬)</option>
           </select>
         </div>
 
         {/* Condition Description */}
         <div className="md:col-span-2">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t('contact.condition', 'Condition Description')} *
+            {t('') || ''} *
           </label>
           <textarea
             name="conditionDescription"
@@ -209,7 +209,7 @@ export default function ContactForm() {
             rows={4}
             value={formData.conditionDescription}
             onChange={handleChange}
-            placeholder={t('contact.conditionPlaceholder', 'Please describe your medical condition or reason for visiting...')}
+            placeholder={t('') || ''}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
@@ -217,7 +217,7 @@ export default function ContactForm() {
         {/* Urgency */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t('contact.urgency', 'Urgency')}
+            {t('') || ''}
           </label>
           <select
             name="urgency"
@@ -225,23 +225,23 @@ export default function ContactForm() {
             onChange={handleChange}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
-            <option value="routine">{t('contact.urgencyRoutine', 'Routine (within 3 months)')}</option>
-            <option value="urgent">{t('contact.urgencyUrgent', 'Urgent (within 1 month)')}</option>
-            <option value="emergency">{t('contact.urgencyEmergency', 'Emergency (ASAP)')}</option>
+            <option value="routine">{t('') || ''}</option>
+            <option value="urgent">{t('') || ''}</option>
+            <option value="emergency">{t('') || ''}</option>
           </select>
         </div>
 
         {/* Preferred Hospital */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t('contact.hospital', 'Preferred Hospital (Optional)')}
+            {t('') || ''}
           </label>
           <input
             type="text"
             name="preferredHospital"
             value={formData.preferredHospital}
             onChange={handleChange}
-            placeholder={t('contact.hospitalPlaceholder', 'e.g., Peking Union Medical College Hospital')}
+            placeholder={t('') || ''}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
@@ -249,7 +249,7 @@ export default function ContactForm() {
         {/* Budget Range */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t('contact.budget', 'Budget Range (USD)')}
+            {t('') || ''}
           </label>
           <select
             name="budgetRange"
@@ -257,19 +257,19 @@ export default function ContactForm() {
             onChange={handleChange}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
-            <option value="">{t('contact.selectBudget', 'Select budget range...')}</option>
+            <option value="">{t('') || ''}</option>
             <option value="5000-10000">$5,000 - $10,000</option>
             <option value="10000-20000">$10,000 - $20,000</option>
             <option value="20000-50000">$20,000 - $50,000</option>
             <option value="50000+">$50,000+</option>
-            <option value="undecided">{t('contact.undecided', 'Undecided')}</option>
+            <option value="undecided">{t('') || ''}</option>
           </select>
         </div>
 
         {/* Travel Month */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t('contact.travelMonth', 'Preferred Travel Month')}
+            {t('') || ''}
           </label>
           <input
             type="month"
@@ -283,14 +283,14 @@ export default function ContactForm() {
         {/* Additional Info */}
         <div className="md:col-span-2">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t('contact.additionalInfo', 'Additional Information (Optional)')}
+            {t('') || ''}
           </label>
           <textarea
             name="additionalInfo"
             rows={3}
             value={formData.additionalInfo}
             onChange={handleChange}
-            placeholder={t('contact.additionalInfoPlaceholder', 'Any other details you would like to share...')}
+            placeholder={t('') || ''}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
@@ -302,9 +302,10 @@ export default function ContactForm() {
           disabled={isSubmitting}
           className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
         >
-          {isSubmitting ? t('contact.submitting', 'Submitting...') : t('contact.submit', 'Submit Inquiry')}
+          {isSubmitting ? t('') || '' : t('') || ''}
         </button>
       </div>
     </form>
   );
 }
+

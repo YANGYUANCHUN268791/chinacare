@@ -1,30 +1,39 @@
 import { NextResponse } from 'next/server'
-import { getStripe } from '@/lib/stripe'
+import { connectToDatabase } from '@/lib/db'
+import Order from '@/models/Order'
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json()
-    const { sessionId } = body
+    await connectToDatabase()
 
-    if (!sessionId) {
+    const body = await request.json()
+    const { orderId } = body
+
+    if (!orderId) {
       return NextResponse.json(
-        { error: 'Session ID is required' },
+        { error: 'Order ID is required' },
         { status: 400 }
       )
     }
 
-    const session = await getStripe().checkout.sessions.retrieve(sessionId)
+    const order = await Order.findOne({ orderId })
 
-    if (session.payment_status === 'paid') {
-      // Here you would typically:
-      // 1. Create a user account
-      // 2. Send confirmation email
-      // 3. Add to your database
-      
-      return NextResponse.json({ 
-        success: true, 
-        customerEmail: session.customer_email,
-        planId: session.metadata?.planId 
+    if (!order) {
+      return NextResponse.json(
+        { error: 'Order not found' },
+        { status: 404 }
+      )
+    }
+
+    if (order.paymentStatus === 'paid') {
+      return NextResponse.json({
+        success: true,
+        orderId: order.orderId,
+        planName: order.planName,
+        amount: order.amount,
+        currency: order.currency,
+        customerEmail: order.email,
+        paidAt: order.paidAt,
       })
     }
 

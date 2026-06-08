@@ -16,10 +16,10 @@ export default function ContactPage() {
       <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl font-bold mb-6">
-            {t('contact.title', 'Contact Us')}
+            {t('contact.title') || 'Contact Us'}
           </h1>
           <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-            {t('contact.subtitle', 'Get in touch with our medical coordination team. We usually respond within 24 hours.')}
+            {t('contact.subtitle') || 'Get in touch with our medical coordination team. We usually respond within 24 hours.'}
           </p>
         </div>
       </section>
@@ -61,8 +61,8 @@ export default function ContactPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold mb-2">{t('footer.support', '24/7 Support')}</h3>
-              <p className="text-gray-600">{t('contact.available247', 'Always available to assist you')}</p>
+              <h3 className="text-lg font-semibold mb-2">{t('footer.support') || '24/7 Support'}</h3>
+              <p className="text-gray-600">{t('contact.available247') || 'Always available to assist you'}</p>
             </div>
           </div>
         </div>
