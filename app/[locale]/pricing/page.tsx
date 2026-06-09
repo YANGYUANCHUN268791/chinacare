@@ -3,7 +3,8 @@ import { useState } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { useLanguage } from '@/components/LanguageProvider'
-import { Check, Sparkles, Heart, Building2, CreditCard, Lock, Loader2 } from 'lucide-react'
+import { Check, Sparkles, Heart, Building2, CreditCard, Lock, Loader2, Shield } from 'lucide-react'
+import { loadStripe } from '@stripe/stripe-js'
 
 const plans = [
   {
@@ -79,6 +80,9 @@ const countries = [
   'Philippines', 'Vietnam', 'Nigeria', 'Kenya', 'South Africa', 'Other'
 ]
 
+// Stripe 可发布密钥（客户端使用，暴露在前端是安全的）
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '')
+
 export default function PricingPage() {
   const { locale } = useLanguage()
   const isZh = locale === 'zh'
@@ -117,18 +121,31 @@ export default function PricingPage() {
     setError('')
 
     try {
+      // 调用后端 API 创建 Stripe Checkout Session
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ planId: selectedPlan, ...formData }),
+        body: JSON.stringify({ planId: selectedPlan, ...formData, locale }),
       })
 
       const data = await response.json()
 
-      if (data.success) {
-        window.location.href = `/pricing/success?order_id=${data.orderId}`
+      if (data.success && data.url) {
+        // ✅ 成功：跳转到 Stripe 托管的支付页面
+        const stripe = await stripePromise
+        if (stripe) {
+          // 使用 stripe.redirectToCheckout 跳转（比 window.location.href 更可靠）
+          const { error } = await stripe.redirectToCheckout({ sessionId: data.sessionId })
+          if (error) {
+            console.error('Stripe redirect error:', error)
+            setError(isZh ? '跳转支付页面失败，请重试' : 'Failed to redirect to payment. Please try again.')
+          }
+        } else {
+          // fallback（备用方案）：直接跳转 URL
+          window.location.href = data.url
+        }
       } else {
-        setError(data.error || (isZh ? '支付失败，请重试' : 'Payment failed. Please try again.'))
+        setError(data.error || (isZh ? '创建订单失败，请重试' : 'Failed to create order. Please try again.'))
       }
     } catch (err) {
       setError(isZh ? '网络错误，请重试' : 'Network error. Please try again.')
@@ -355,26 +372,33 @@ export default function PricingPage() {
                     />
                   </div>
 
-                  {/* Simulated Card */}
-                  <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                  {/* Stripe Payment Notice */}
+                  <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
                     <div className="flex items-center gap-2 mb-3">
-                      <CreditCard className="w-4 h-4 text-gray-500" />
-                      <span className="text-sm font-medium text-gray-700">
-                        {isZh ? '模拟支付（测试模式）' : 'Simulated Payment (Test Mode)'}
+                      <Shield className="w-4 h-4 text-blue-600" />
+                      <span className="text-sm font-medium text-blue-800">
+                        {isZh ? '安全支付（Stripe）' : 'Secure Payment (Stripe)'}
                       </span>
                     </div>
-                    <div className="bg-white border border-gray-300 rounded-lg p-3 flex items-center justify-between">
-                      <span className="text-sm text-gray-500">
-                        •••• •••• •••• 4242
-                      </span>
-                      <span className="text-xs text-gray-400">12/28</span>
+                    <div className="flex items-center gap-3 mb-2">
+                      <CreditCard className="w-8 h-8 text-gray-400" />
+                      <div className="text-sm text-gray-600">
+                        <p>{isZh ? '您将被重定向到 Stripe 安全支付页面完成付款' : 'You will be redirected to Stripe secure checkout to complete payment'}</p>
+                        <p className="text-xs text-gray-400 mt-1">
+                          {isZh ? '支持 Visa、Mastercard、Amex 等主流信用卡' : 'Supports Visa, Mastercard, Amex and more'}
+                        </p>
+                      </div>
                     </div>
-                    <p className="text-xs text-gray-400 mt-2">
-                      {isZh
-                        ? '当前为模拟支付模式，不会产生真实扣款。正式上线后将接入 Stripe 支付。'
-                        : 'Currently in simulated payment mode. No real charges will be made. Stripe integration coming soon.'
-                      }
-                    </p>
+                    <div className="flex items-center gap-4 mt-3 text-xs text-gray-500">
+                      <div className="flex items-center gap-1">
+                        <Lock className="w-3 h-3" />
+                        <span>{isZh ? 'SSL 加密' : 'SSL Encrypted'}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Shield className="w-3 h-3" />
+                        <span>PCI DSS</span>
+                      </div>
+                    </div>
                   </div>
 
                   {/* Error */}

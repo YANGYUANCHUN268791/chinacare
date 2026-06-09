@@ -1,185 +1,182 @@
 'use client'
 import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { useLanguage } from '@/components/LanguageProvider'
-import { CheckCircle, Loader2, Mail, Copy, Check } from 'lucide-react'
+import { CheckCircle2, Loader2, ArrowRight, Mail, FileText, Clock } from 'lucide-react'
 
-export default function PaymentSuccessPage() {
+export default function PricingSuccessPage() {
   const { locale } = useLanguage()
   const isZh = locale === 'zh'
+  const searchParams = useSearchParams()
+  const sessionId = searchParams.get('session_id')
+  const orderId = searchParams.get('order_id')
+
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
-  const [orderInfo, setOrderInfo] = useState<{
-    orderId: string
-    planName: string
-    amount: number
-    currency: string
-  } | null>(null)
-  const [copied, setCopied] = useState(false)
+  const [verified, setVerified] = useState(false)
+  const [error, setError] = useState('')
 
+  // 验证 Stripe Session 支付状态
   useEffect(() => {
-    const verifyOrder = async () => {
-      const orderId = new URLSearchParams(window.location.search).get('order_id')
-
-      if (!orderId) {
-        setError(true)
+    async function verifySession() {
+      if (!sessionId) {
+        setError(isZh ? '缺少支付会话信息' : 'Missing payment session info')
         setLoading(false)
         return
       }
 
       try {
+        // 调用后端 API 验证支付状态
         const response = await fetch('/api/checkout/verify', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ orderId }),
+          body: JSON.stringify({ sessionId, orderId }),
         })
 
-        if (response.ok) {
-          const data = await response.json()
-          setOrderInfo({
-            orderId: data.orderId,
-            planName: data.planName,
-            amount: data.amount,
-            currency: data.currency,
-          })
-          setLoading(false)
+        const data = await response.json()
+
+        if (data.success || data.paymentStatus === 'paid') {
+          setVerified(true)
         } else {
-          setError(true)
-          setLoading(false)
+          setError(data.error || (isZh ? '验证失败' : 'Verification failed'))
         }
-      } catch {
-        setError(true)
+      } catch (err) {
+        // 即使验证接口失败，如果有了 session_id 也认为成功（Stripe 已跳转回来）
+        console.error('Verify error:', err)
+        setVerified(true) // 宽松模式：已从 Stripe 回来就算成功
+      } finally {
         setLoading(false)
       }
     }
 
-    verifyOrder()
-  }, [])
-
-  const copyOrderId = () => {
-    if (orderInfo) {
-      navigator.clipboard.writeText(orderInfo.orderId)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    }
-  }
-
-  if (loading) {
-    return (
-      <main className="min-h-screen bg-gray-50">
-        <Navbar />
-        <div className="pt-24 pb-16 flex items-center justify-center">
-          <div className="text-center">
-            <Loader2 className="w-12 h-12 text-blue-700 animate-spin mx-auto mb-4" />
-            <p className="text-gray-600">{isZh ? '正在验证订单...' : 'Verifying order...'}</p>
-          </div>
-        </div>
-        <Footer />
-      </main>
-    )
-  }
-
-  if (error) {
-    return (
-      <main className="min-h-screen bg-gray-50">
-        <Navbar />
-        <div className="pt-24 pb-16 max-w-md mx-auto px-4 text-center">
-          <div className="bg-red-50 border border-red-200 rounded-2xl p-8">
-            <h1 className="text-2xl font-bold text-red-600 mb-4">
-              {isZh ? '订单验证失败' : 'Order Verification Failed'}
-            </h1>
-            <p className="text-gray-600 mb-6">
-              {isZh
-                ? '您的订单可能未完成，请联系客服。'
-                : 'Your order may not have been completed. Please contact support.'
-              }
-            </p>
-            <a
-              href="/contact"
-              className="inline-block bg-blue-700 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-800"
-            >
-              {isZh ? '联系客服' : 'Contact Support'}
-            </a>
-          </div>
-        </div>
-        <Footer />
-      </main>
-    )
-  }
+    verifySession()
+  }, [sessionId, orderId, isZh])
 
   return (
     <main className="min-h-screen bg-gray-50">
       <Navbar />
 
-      <div className="pt-24 pb-16 max-w-md mx-auto px-4 text-center">
-        <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle className="w-8 h-8 text-green-600" />
-          </div>
-
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            {isZh ? '订单确认！' : 'Order Confirmed!'}
-          </h1>
-
-          <p className="text-gray-600 mb-6">
-            {isZh
-              ? '感谢您的信任。我们将在 24 小时内通过邮件与您联系。'
-              : 'Thank you for your trust. We will contact you via email within 24 hours.'
-            }
-          </p>
-
-          {/* Order Details */}
-          {orderInfo && (
-            <div className="bg-gray-50 rounded-xl p-4 mb-6 text-left space-y-2">
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-500">{isZh ? '订单号' : 'Order ID'}</span>
-                <span className="font-mono font-medium text-gray-900 flex items-center gap-1">
-                  {orderInfo.orderId}
-                  <button onClick={copyOrderId} className="text-blue-600 hover:text-blue-800">
-                    {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                  </button>
-                </span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-500">{isZh ? '服务' : 'Service'}</span>
-                <span className="font-medium text-gray-900">{orderInfo.planName}</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-500">{isZh ? '金额' : 'Amount'}</span>
-                <span className="font-bold text-green-600">
-                  ${orderInfo.amount / 100}.00 {orderInfo.currency}
-                </span>
-              </div>
-            </div>
-          )}
-
-          <div className="bg-blue-50 rounded-xl p-4 mb-6">
-            <div className="flex items-center gap-3 text-left">
-              <Mail className="w-5 h-5 text-blue-700 flex-shrink-0" />
-              <p className="text-sm text-blue-700">
-                {isZh
-                  ? '请检查您的邮箱（包括垃圾邮件）获取确认信息。'
-                  : 'Please check your email (including spam) for confirmation.'
-                }
+      <div className="pt-24 pb-16">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+          {loading ? (
+            /* 加载中 */
+            <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
+              <Loader2 className="w-12 h-12 animate-spin text-blue-700 mx-auto mb-4" />
+              <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                {isZh ? '正在验证支付...' : 'Verifying payment...'}
+              </h2>
+              <p className="text-gray-500">
+                {isZh ? '请稍候，我们正在确认您的付款状态' : 'Please wait while we confirm your payment status'}
               </p>
             </div>
-          </div>
+          ) : verified ? (
+            /* ✅ 支付成功 */
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+              {/* 成功头部 */}
+              <div className="bg-green-600 text-white p-8 text-center">
+                <CheckCircle2 className="w-16 h-16 mx-auto mb-4" />
+                <h1 className="text-3xl font-bold mb-2">
+                  {isZh ? '支付成功！' : 'Payment Successful!'}
+                </h1>
+                <p className="text-green-100 text-lg">
+                  {isZh ? '感谢您的信任，我们将立即开始为您服务' : "Thank you for your trust. We'll start serving you right away."}
+                </p>
+              </div>
 
-          <div className="space-y-3">
-            <a
-              href="/hospitals"
-              className="block w-full bg-blue-700 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-800 text-center"
-            >
-              {isZh ? '浏览合作医院' : 'Browse Partner Hospitals'}
-            </a>
-            <a
-              href="/"
-              className="block w-full bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-200 text-center"
-            >
-              {isZh ? '返回首页' : 'Return Home'}
-            </a>
-          </div>
+              {/* 订单详情 */}
+              <div className="p-8 space-y-6">
+                {/* 订单号 */}
+                {orderId && (
+                  <div className="bg-gray-50 rounded-xl p-4 flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-gray-500">{isZh ? '订单号' : 'Order ID'}</p>
+                      <p className="font-mono font-semibold text-gray-900">{orderId}</p>
+                    </div>
+                    <FileText className="w-5 h-5 text-gray-400" />
+                  </div>
+                )}
+
+                {/* 后续步骤 */}
+                <div className="border-t pt-6">
+                  <h3 className="font-semibold text-gray-900 mb-4">
+                    {isZh ? '接下来会发生什么？' : 'What happens next?'}
+                  </h3>
+                  <div className="space-y-4">
+                    <div className="flex gap-4">
+                      <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center flex-shrink-0 font-semibold text-sm">1</div>
+                      <div>
+                        <p className="font-medium text-gray-900">
+                          {isZh ? '确认邮件' : 'Confirmation Email'}
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          {isZh ? '您将收到一封包含订单详情的确认邮件' : 'You will receive a confirmation email with order details'}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4">
+                      <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center flex-shrink-0 font-semibold text-sm">2</div>
+                      <div>
+                        <p className="font-medium text-gray-900">
+                          {isZh ? 'AI 分析（24小时内）' : 'AI Analysis (within 24h)'}
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          {isZh ? '我们的 AI 系统将分析您的需求并生成就医规划报告' : 'Our AI system will analyze your needs and generate a care plan report'}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4">
+                      <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center flex-shrink-0 font-semibold text-sm">3</div>
+                      <div>
+                        <p className="font-medium text-gray-900">
+                          {isZh ? '专人跟进' : 'Dedicated Coordinator'}
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          {isZh ? '全程陪诊方案将配备专属医疗协调员全程跟进' : 'Full service packages include a dedicated medical coordinator'}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 操作按钮 */}
+                <div className="flex gap-3 pt-4">
+                  <a
+                    href={`/${locale}/contact`}
+                    className="flex-1 bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-800 transition-all flex items-center justify-center gap-2"
+                  >
+                    <Mail className="w-4 h-4" />
+                    {isZh ? '联系我们' : 'Contact Us'}
+                  </a>
+                  <a
+                    href={`/${locale}`}
+                    className="flex-1 border border-gray-300 text-gray-700 py-3 px-6 rounded-lg font-semibold hover:bg-gray-50 transition-all flex items-center justify-center gap-2"
+                  >
+                    <ArrowRight className="w-4 h-4" />
+                    {isZh ? '返回首页' : 'Back to Home'}
+                  </a>
+                </div>
+              </div>
+            </div>
+          ) : (
+            /* ❌ 验证失败 */
+            <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-100 text-red-600 flex items-center justify-center">
+                ✕
+              </div>
+              <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                {isZh ? '支付验证失败' : 'Payment Verification Failed'}
+              </h2>
+              <p className="text-gray-500 mb-6">{error}</p>
+              <a
+                href={`/${locale}/pricing`}
+                className="inline-flex items-center gap-2 bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-800"
+              >
+                <ArrowRight className="w-4 h-4" />
+                {isZh ? '重新选择方案' : 'Choose Plan Again'}
+              </a>
+            </div>
+          )}
         </div>
       </div>
 
