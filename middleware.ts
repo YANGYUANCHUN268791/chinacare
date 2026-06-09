@@ -1,10 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'chinacare2024'
-
-// Routes that don't need auth
-const publicRoutes = ['/admin/login']
-
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
@@ -13,14 +8,13 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  // Allow login page
-  if (publicRoutes.some(route => pathname === route)) {
+  // Allow login page through
+  if (pathname === '/admin/login') {
     return NextResponse.next()
   }
 
   // Check admin_token cookie
   const token = request.cookies.get('admin_token')
-
   if (token && token.value === 'authenticated') {
     return NextResponse.next()
   }
