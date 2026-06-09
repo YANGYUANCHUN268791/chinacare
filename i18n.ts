@@ -1,5 +1,13 @@
-// i18n config — translations handled client-side via LanguageProvider
-// See components/LanguageProvider.tsx and messages/*.json
-export const locales = ['zh', 'en', 'ar', 'fr', 'es', 'ru'] as const
-export const defaultLocale = 'zh'
-export type Locale = typeof locales[number]
+import { getRequestConfig } from 'next-intl/server'
+import { routing } from './lib/routing'
+
+export default getRequestConfig(async ({ requestLocale }) => {
+  const locale = await requestLocale
+  if (!locale || !routing.locales.includes(locale as (typeof routing.locales)[number])) {
+    throw new Error('Invalid locale')
+  }
+  return {
+    locale,
+    messages: (await import(`./messages/${locale}.json`)).default,
+  }
+})
