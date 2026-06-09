@@ -1,16 +1,16 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import {
   LayoutDashboard,
   Users,
   CreditCard,
   Building2,
-  Settings,
   Menu,
   X,
-  LogOut
+  LogOut,
+  ShieldCheck
 } from 'lucide-react'
 
 const navItems = [
@@ -26,7 +26,42 @@ export default function AdminLayout({
   children: React.ReactNode
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [authenticated, setAuthenticated] = useState<boolean | null>(null)
   const pathname = usePathname()
+  const router = useRouter()
+
+  useEffect(() => {
+    fetch('/api/admin/auth')
+      .then(res => {
+        if (res.ok) {
+          setAuthenticated(true)
+        } else {
+          setAuthenticated(false)
+          router.replace('/admin/login')
+        }
+      })
+      .catch(() => setAuthenticated(false))
+  }, [router])
+
+  const handleLogout = async () => {
+    await fetch('/api/admin/login', { method: 'DELETE' })
+    setAuthenticated(false)
+    router.replace('/admin/login')
+  }
+
+  // Loading state
+  if (authenticated === null) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      </div>
+    )
+  }
+
+  // Not authenticated - redirect handled by useEffect
+  if (!authenticated) {
+    return null
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -73,7 +108,14 @@ export default function AdminLayout({
             })}
           </nav>
 
-          <div className="absolute bottom-4 left-0 right-0 px-3">
+          <div className="absolute bottom-4 left-0 right-0 px-3 space-y-1">
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-red-400 hover:bg-slate-800 transition"
+            >
+              <ShieldCheck className="w-5 h-5" />
+              <span>Logout</span>
+            </button>
             <Link
               href="/"
               className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-400 hover:bg-slate-800 transition"
