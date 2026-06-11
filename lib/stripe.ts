@@ -29,19 +29,47 @@ export function getStripe(): Stripe {
 export const PLANS: Record<string, {
   name: string
   nameZh: string
-  amount: number // 单位：分（cents），4900 = $49.00
+  amount: number // 单位：分（cents）
   currency: string
 }> = {
-  consultation: {
-    name: 'AI Consultation Report',
-    nameZh: 'AI 咨询报告',
-    amount: 4900, // $49.00
+  // 视频问诊方案
+  'video-15min': {
+    name: 'Video Consultation 15min',
+    nameZh: '视频问诊 15分钟',
+    amount: 7900, // $79.00
     currency: 'usd',
   },
-  'full-service': {
-    name: 'Full Service Package',
-    nameZh: '全程陪诊服务',
+  'video-30min': {
+    name: 'Video Consultation 30min',
+    nameZh: '视频问诊 30分钟',
+    amount: 14900, // $149.00
+    currency: 'usd',
+  },
+  'video-45min': {
+    name: 'Video Consultation 45min',
+    nameZh: '视频问诊 45分钟',
+    amount: 20900, // $209.00
+    currency: 'usd',
+  },
+  // 医疗旅游套餐
+  'travel-package': {
+    name: 'Medical Travel Package',
+    nameZh: '赴华医疗之旅',
     amount: 29900, // $299.00
+    currency: 'usd',
+  },
+  // VIP 套餐
+  'vip-package': {
+    name: 'VIP Concierge Service',
+    nameZh: 'VIP 全程陪诊服务',
+    amount: 49900, // $499.00
+    currency: 'usd',
+  },
+  // 医院预约定金
+  'hospital-deposit': {
+    name: 'Hospital Appointment Deposit',
+    nameZh: '医院预约定金',
+    amount: 5000, // $50.00
     currency: 'usd',
   },
 }
