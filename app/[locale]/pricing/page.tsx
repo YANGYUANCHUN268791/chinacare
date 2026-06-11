@@ -3,40 +3,81 @@ import { useState } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { useLanguage } from '@/components/LanguageProvider'
-import { Check, Sparkles, Heart, Building2, CreditCard, Lock, Loader2, Shield } from 'lucide-react'
-import { loadStripe } from '@stripe/stripe-js'
+import { Check, Video, Heart, Building2, CreditCard, Lock, Loader2, Shield, Star } from 'lucide-react'
 
 const plans = [
   {
-    id: 'consultation',
-    icon: Sparkles,
-    name: { zh: 'AI 咨询报告', en: 'AI Consultation Report' },
-    price: { zh: '$49', en: '$49' },
-    priceValue: 49,
+    id: 'video-15min',
+    icon: Video,
+    name: { zh: '视频问诊 15分钟', en: 'Video Consultation 15min' },
+    price: { zh: '$79', en: '$79' },
+    priceValue: 79,
     period: { zh: '一次性', en: 'one-time' },
     description: {
-      zh: 'AI 生成的个性化就医规划报告',
-      en: 'Personalized AI-generated care planning report'
+      zh: '与专家医生进行15分钟视频咨询',
+      en: '15-minute video consultation with specialist doctor'
     },
     features: [
-      { zh: 'AI 病情分析与医院匹配', en: 'AI diagnosis analysis & hospital matching', included: true },
-      { zh: '2-3 家推荐医院详情', en: '2-3 recommended hospital details', included: true },
-      { zh: '预估费用明细', en: 'Estimated cost breakdown', included: true },
-      { zh: '就医流程时间线', en: 'Treatment timeline', included: true },
-      { zh: '签证申请指导', en: 'Visa guidance', included: true },
+      { zh: '15分钟专家视频问诊', en: '15-min video consultation with specialist', included: true },
+      { zh: '病情初步评估', en: 'Initial condition assessment', included: true },
+      { zh: '治疗方案建议', en: 'Treatment plan recommendations', included: true },
+      { zh: '用药指导', en: 'Medication guidance', included: true },
+      { zh: '后续就医建议', en: 'Follow-up care recommendations', included: true },
       { zh: '真人客服跟进', en: 'Human coordinator follow-up', included: false },
     ],
     popular: false,
   },
   {
-    id: 'full-service',
+    id: 'video-30min',
+    icon: Video,
+    name: { zh: '视频问诊 30分钟', en: 'Video Consultation 30min' },
+    price: { zh: '$149', en: '$149' },
+    priceValue: 149,
+    period: { zh: '一次性', en: 'one-time' },
+    description: {
+      zh: '更充分的医患交流时间',
+      en: 'More comprehensive doctor-patient communication'
+    },
+    features: [
+      { zh: '30分钟专家视频问诊', en: '30-min video consultation with specialist', included: true },
+      { zh: '详细病情分析', en: 'Detailed condition analysis', included: true },
+      { zh: '个性化治疗方案', en: 'Personalized treatment plan', included: true },
+      { zh: '检查报告解读', en: 'Medical report interpretation', included: true },
+      { zh: '用药及康复指导', en: 'Medication & recovery guidance', included: true },
+      { zh: '真人客服跟进', en: 'Human coordinator follow-up', included: false },
+    ],
+    popular: true,
+  },
+  {
+    id: 'video-45min',
+    icon: Video,
+    name: { zh: '视频问诊 45分钟', en: 'Video Consultation 45min' },
+    price: { zh: '$209', en: '$209' },
+    priceValue: 209,
+    period: { zh: '一次性', en: 'one-time' },
+    description: {
+      zh: '深度咨询，适合复杂病情',
+      en: 'In-depth consultation for complex conditions'
+    },
+    features: [
+      { zh: '45分钟专家视频问诊', en: '45-min video consultation with specialist', included: true },
+      { zh: '复杂病情全面评估', en: 'Comprehensive assessment of complex conditions', included: true },
+      { zh: '多学科会诊建议', en: 'Multi-disciplinary consultation recommendations', included: true },
+      { zh: '完整治疗方案制定', en: 'Complete treatment plan formulation', included: true },
+      { zh: '长期康复计划', en: 'Long-term recovery plan', included: true },
+      { zh: '优先客服通道', en: 'Priority support channel', included: true },
+    ],
+    popular: false,
+  },
+  {
+    id: 'travel-package',
     icon: Heart,
-    name: { zh: '全程陪诊服务', en: 'Full Service Package' },
+    name: { zh: '赴华医疗之旅', en: 'Medical Travel Package' },
     price: { zh: '$299', en: '$299' },
     priceValue: 299,
     period: { zh: '一次性', en: 'one-time' },
     description: {
-      zh: '从咨询到康复的全方位服务',
+      zh: '从咨询到康复的全程服务',
       en: 'End-to-end service from consultation to recovery'
     },
     features: [
@@ -48,26 +89,48 @@ const plans = [
       { zh: '机场接送机', en: 'Airport pickup/dropoff', included: true },
       { zh: '术后随访指导', en: 'Post-treatment follow-up guidance', included: true },
     ],
-    popular: true,
+    popular: false,
   },
   {
-    id: 'enterprise',
-    icon: Building2,
-    name: { zh: '企业/机构合作', en: 'Enterprise Partnership' },
-    price: { zh: '联系询价', en: 'Contact Us' },
-    priceValue: 0,
-    period: { zh: '定制', en: 'custom' },
+    id: 'vip-package',
+    icon: Star,
+    name: { zh: 'VIP 全程陪诊', en: 'VIP Concierge Service' },
+    price: { zh: '$499', en: '$499' },
+    priceValue: 499,
+    period: { zh: '一次性', en: 'one-time' },
     description: {
-      zh: '为医疗机构、保险公司、旅行社等提供定制服务',
-      en: 'Custom solutions for medical institutions, insurance companies, travel agencies'
+      zh: '尊享一对一专属服务',
+      en: 'Exclusive one-on-one premium service'
     },
     features: [
-      { zh: '专属客户经理', en: 'Dedicated account manager', included: true },
-      { zh: 'API 接口对接', en: 'API integration', included: true },
-      { zh: '批量患者转介', en: 'Batch patient referrals', included: true },
-      { zh: '定制化报告', en: 'Customized reports', included: true },
-      { zh: '优先客服通道', en: 'Priority support channel', included: true },
-      { zh: '专属折扣', en: 'Exclusive discounts', included: true },
+      { zh: '医疗之旅所有服务', en: 'All Medical Travel Package benefits', included: true },
+      { zh: '专属 VIP 协调员', en: 'Dedicated VIP coordinator', included: true },
+      { zh: '顶级医院优先预约', en: 'Priority booking at top hospitals', included: true },
+      { zh: '豪华住宿安排', en: 'Luxury accommodation arrangement', included: true },
+      { zh: '私人专车接送', en: 'Private car service', included: true },
+      { zh: '24/7 全天候支持', en: '24/7 round-the-clock support', included: true },
+      { zh: '康复期专属护理', en: 'Exclusive post-care nursing', included: true },
+    ],
+    popular: false,
+  },
+  {
+    id: 'hospital-deposit',
+    icon: Building2,
+    name: { zh: '医院预约定金', en: 'Hospital Appointment Deposit' },
+    price: { zh: '$50', en: '$50' },
+    priceValue: 50,
+    period: { zh: '可抵扣', en: 'deductible' },
+    description: {
+      zh: '锁定医院预约名额',
+      en: 'Secure your hospital appointment slot'
+    },
+    features: [
+      { zh: '优先预约医院', en: 'Priority hospital appointment', included: true },
+      { zh: '定金可抵扣医疗费', en: 'Deposit deductible from medical fees', included: true },
+      { zh: '预约确认 24h 内', en: 'Appointment confirmation within 24h', included: true },
+      { zh: '免费改期一次', en: 'One free reschedule', included: true },
+      { zh: '未使用全额退款', en: 'Full refund if unused', included: true },
+      { zh: '真人客服跟进', en: 'Human coordinator follow-up', included: true },
     ],
     popular: false,
   },
@@ -80,8 +143,6 @@ const countries = [
   'Philippines', 'Vietnam', 'Nigeria', 'Kenya', 'South Africa', 'Other'
 ]
 
-// Stripe 可发布密钥（客户端使用，暴露在前端是安全的）
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '')
 
 export default function PricingPage() {
   const { locale } = useLanguage()
@@ -101,10 +162,6 @@ export default function PricingPage() {
   const activePlan = plans.find(p => p.id === selectedPlan)
 
   const handleSelectPlan = (planId: string) => {
-    if (planId === 'enterprise') {
-      window.location.href = '/contact'
-      return
-    }
     setSelectedPlan(planId)
     setError('')
   }
@@ -131,19 +188,8 @@ export default function PricingPage() {
       const data = await response.json()
 
       if (data.success && data.url) {
-        // ✅ 成功：跳转到 Stripe 托管的支付页面
-        const stripe = await stripePromise
-        if (stripe) {
-          // 使用 stripe.redirectToCheckout 跳转（比 window.location.href 更可靠）
-          const { error } = await stripe.redirectToCheckout({ sessionId: data.sessionId })
-          if (error) {
-            console.error('Stripe redirect error:', error)
-            setError(isZh ? '跳转支付页面失败，请重试' : 'Failed to redirect to payment. Please try again.')
-          }
-        } else {
-          // fallback（备用方案）：直接跳转 URL
-          window.location.href = data.url
-        }
+        // ✅ 成功：直接跳转到 Stripe Checkout URL
+        window.location.href = data.url
       } else {
         setError(data.error || (isZh ? '创建订单失败，请重试' : 'Failed to create order. Please try again.'))
       }
@@ -176,7 +222,7 @@ export default function PricingPage() {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {plans.map((plan) => {
               const Icon = plan.icon
 
@@ -184,7 +230,7 @@ export default function PricingPage() {
                 <div
                   key={plan.id}
                   onClick={() => handleSelectPlan(plan.id)}
-                  className={`relative bg-white rounded-2xl p-8 cursor-pointer transition-all hover:shadow-lg ${
+                  className={`relative bg-white rounded-2xl p-6 cursor-pointer transition-all hover:shadow-lg ${
                     selectedPlan === plan.id
                       ? 'ring-3 ring-blue-700 shadow-xl'
                       : plan.popular
@@ -204,15 +250,15 @@ export default function PricingPage() {
                     }`}>
                       <Icon className="w-6 h-6" />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    <h3 className="text-lg font-bold text-gray-900 mb-2">
                       {plan.name[isZh ? 'zh' : 'en']}
                     </h3>
                     <div className="mb-2">
-                      <span className="text-4xl font-extrabold text-gray-900">
+                      <span className="text-3xl font-extrabold text-gray-900">
                         {plan.price[isZh ? 'zh' : 'en']}
                       </span>
                       {plan.period[isZh ? 'zh' : 'en'] !== '定制' && plan.period[isZh ? 'zh' : 'en'] !== 'custom' && (
-                        <span className="text-gray-500 ml-1">/ {plan.period[isZh ? 'zh' : 'en']}</span>
+                        <span className="text-gray-500 ml-1 text-sm">/ {plan.period[isZh ? 'zh' : 'en']}</span>
                       )}
                     </div>
                     <p className="text-gray-500 text-sm">
@@ -220,13 +266,13 @@ export default function PricingPage() {
                     </p>
                   </div>
 
-                  <ul className="space-y-3 mb-8">
+                  <ul className="space-y-2 mb-6">
                     {plan.features.map((feature, i) => (
-                      <li key={i} className="flex items-center gap-3">
-                        <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${
+                      <li key={i} className="flex items-center gap-2 text-sm">
+                        <div className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 ${
                           feature.included ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'
                         }`}>
-                          <Check className="w-3 h-3" />
+                          <Check className="w-2.5 h-2.5" />
                         </div>
                         <span className={feature.included ? 'text-gray-700' : 'text-gray-400'}>
                           {feature[isZh ? 'zh' : 'en']}
@@ -236,19 +282,16 @@ export default function PricingPage() {
                   </ul>
 
                   {selectedPlan === plan.id ? (
-                    <div className="w-full py-3 px-6 rounded-lg font-semibold bg-blue-700 text-white text-center">
+                    <div className="w-full py-2.5 px-4 rounded-lg font-semibold bg-blue-700 text-white text-center text-sm">
                       {isZh ? '已选择 ✓' : 'Selected ✓'}
                     </div>
                   ) : (
-                    <div className={`w-full py-3 px-6 rounded-lg font-semibold text-center ${
+                    <div className={`w-full py-2.5 px-4 rounded-lg font-semibold text-center text-sm ${
                       plan.popular
                         ? 'bg-blue-700 text-white hover:bg-blue-800'
                         : 'bg-gray-900 text-white hover:bg-gray-800'
                     }`}>
-                      {plan.id === 'enterprise'
-                        ? (isZh ? '联系我们' : 'Contact Us')
-                        : (isZh ? '选择此方案' : 'Select Plan')
-                    }
+                      {isZh ? '选择此方案' : 'Select Plan'}
                     </div>
                   )}
                 </div>
@@ -471,8 +514,8 @@ export default function PricingPage() {
                 </h3>
                 <p className="text-gray-600">
                   {isZh
-                    ? '是的，正式上线后我们将使用 Stripe 处理支付，这是全球最安全的支付平台之一。您的信用卡信息永远不会存储在我们的服务器上。'
-                    : 'Yes, after launch we will use Stripe for all payments, one of the world\'s most secure payment platforms. Your credit card information is never stored on our servers.'
+                    ? '是的，我们使用 Stripe 处理支付，这是全球最安全的支付平台之一。您的信用卡信息永远不会存储在我们的服务器上。'
+                    : 'Yes, we use Stripe for all payments, one of the world\'s most secure payment platforms. Your credit card information is never stored on our servers.'
                   }
                 </p>
               </div>
