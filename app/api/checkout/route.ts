@@ -16,12 +16,14 @@ function generateOrderId(): string {
 }
 
 export async function POST(request: Request) {
+  console.log('[CHECKOUT] POST received')
   try {
     // 连接数据库
     await connectToDatabase()
 
     // 解析请求体
     const body = await request.json()
+    console.log('[CHECKOUT] body parsed:', Object.keys(body))
     const { planId, firstName, lastName, email, phone, country, conditionDescription } = body
 
     // 验证方案 ID

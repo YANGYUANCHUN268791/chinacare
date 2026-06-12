@@ -194,7 +194,9 @@ export default function PricingPage() {
         setError(data.error || (isZh ? '创建订单失败，请重试' : 'Failed to create order. Please try again.'))
       }
     } catch (err) {
-      setError(isZh ? '网络错误，请重试' : 'Network error. Please try again.')
+      console.error('Checkout fetch error:', err)
+      const msg = err instanceof Error ? err.message : String(err)
+      setError(msg || (isZh ? '网络错误，请重试' : 'Network error. Please try again.'))
     } finally {
       setProcessing(false)
     }

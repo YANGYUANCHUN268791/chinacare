@@ -1,3 +1,4 @@
+import "./globals.css"
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale } from 'next-intl/server'
 import { LanguageProvider } from '@/components/LanguageProvider'
